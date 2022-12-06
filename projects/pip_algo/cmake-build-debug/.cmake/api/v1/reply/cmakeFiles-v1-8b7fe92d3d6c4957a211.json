@@ -767,8 +767,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "C:/Users/loris/OneDrive/Dokumente/GitHub/CPP/libs/point_in_polygon/cmake-build-debug",
-		"source" : "C:/Users/loris/OneDrive/Dokumente/GitHub/CPP/libs/point_in_polygon"
+		"build" : "C:/Users/loris/OneDrive/Dokumente/GitHub/CPP/projects/pip_algo/cmake-build-debug",
+		"source" : "C:/Users/loris/OneDrive/Dokumente/GitHub/CPP/projects/pip_algo"
 	},
 	"version" : 
 	{

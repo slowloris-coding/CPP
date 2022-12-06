@@ -1,6 +1,12 @@
-#ifndef POINT_IN_POLYGON_POINT_IN_POLYGON_H
-#define POINT_IN_POLYGON_POINT_IN_POLYGON_H
+#ifndef POINT_IN_POLYGON_H
+#define POINT_IN_POLYGON_H
 
-void hello();
+#include <bits/stdc++.h>
+#include "./point/point.h"
+#include "./polygon/polygon.h"
 
-#endif //POINT_IN_POLYGON_POINT_IN_POLYGON_H
+using namespace std;
+
+bool point_in_polygon(double x, double y, vector<double[2]> poly);
+
+#endif //POINT_IN_POLYGON_H

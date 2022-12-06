@@ -1,7 +1,13 @@
 #include "point_in_polygon.h"
 
-#include <iostream>
+#include <bits/stdc++.h>
 
-void hello() {
-    std::cout << "Hello, World!" << std::endl;
+#include "./point/point.h"
+#include "./polygon/polygon.h"
+
+using namespace std;
+
+bool point_in_polygon(double x, double y, vector<double[2]> poly){
+    Polygon polygon(poly, "");
+    return polygon.point_inside(new Point(x,y));
 }

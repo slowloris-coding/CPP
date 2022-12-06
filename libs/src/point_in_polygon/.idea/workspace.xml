@@ -19,27 +19,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c81a99f4-d296-4299-829f-212573a1444c" name="Changes" comment="init">
-      <change afterPath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-ad588f7511ca44a0d1a8.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-91950ee36f0f32b4c133.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/.cmake/api/v1/reply/index-2022-12-06T13-24-22-0503.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/.cmake/api/v1/reply/target-pip_algo-Debug-895bd73e211f620cc210.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/.ninja_deps" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/CMakeFiles/pip_algo.dir/libs/point_in_polygon/point_in_polygon.cpp.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/CMakeFiles/pip_algo.dir/main.cpp.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/pip_algo.exe" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../projects/pip_algo/libs/point_in_polygon/point_in_polygon.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../projects/pip_algo/libs/point_in_polygon/point_in_polygon.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../projects/pip_algo/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../projects/pip_algo/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../projects/pip_algo/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../projects/pip_algo/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-8b7fe92d3d6c4957a211.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-1122ca152120c02ccfa6.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/.cmake/api/v1/reply/index-2022-12-06T09-32-39-0240.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/.cmake/api/v1/reply/target-pip_algo-Debug-9092ff1f9082bd8a1fc4.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/../../../projects/pip_algo/cmake-build-debug/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../projects/pip_algo/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../projects/pip_algo/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +84,7 @@
       <option name="presentableId" value="Default" />
       <updated>1670318960254</updated>
       <workItem from="1670318961701" duration="7497000" />
-      <workItem from="1670329932900" duration="3547000" />
+      <workItem from="1670329932900" duration="3575000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1670319070823</created>

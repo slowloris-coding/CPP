@@ -1,7 +1,27 @@
 #include <bits/stdc++.h>
 #include <thread>
+#include <regex>
 
 using namespace std;
+
+std::string exec(string _cmd) {
+    const char* cmd = _cmd.c_str();
+
+    char buffer[128];
+    std::string result = "";
+    FILE* pipe = _popen(cmd, "r");
+    if (!pipe) throw std::runtime_error("_popen() failed!");
+    try {
+        while (fgets(buffer, sizeof buffer, pipe) != NULL) {
+            result += buffer;
+        }
+    } catch (...) {
+        _pclose(pipe);
+        throw;
+    }
+    _pclose(pipe);
+    return result;
+}
 
 bool pingHost(string ip){
         int x = 0;
@@ -15,6 +35,41 @@ bool pingHost(string ip){
         x = system(cmd_str);
 
         return (x == 0);
+}
+
+vector<string> split_str(string str, char del){
+    vector<string> str_v;
+    string tmp_str = "";
+
+    for(int i = 0; i < str.size(); i++){
+        if(str[i] == del){
+            if(tmp_str.size() > 0){
+                str_v.push_back(tmp_str);
+            }
+
+            tmp_str = "";
+        }
+        else {
+            tmp_str += str[i];
+        }
+    }
+
+    if(tmp_str.size() > 0){
+        str_v.push_back(tmp_str);
+        tmp_str = "";
+    }
+
+    return str_v;
+}
+
+int two_power(int p){
+    int r = 1;
+
+    for(int i = 0; i < p; i++){
+        r *= 2;
+    }
+
+    return r;
 }
 
 namespace IPv4 {
@@ -72,7 +127,7 @@ namespace IPv4 {
             for(int i = 0; i < 4; i++){
                 bitset<8> oct_bs(this->value[i]);
 
-                for(int j = 0; j < 8; j++, bi+=1){
+                for(int j = 7; j >= 0; j--, bi+=1){
                     this->bit_value[bi] = oct_bs[j];
                 }
             }
@@ -94,17 +149,27 @@ namespace IPv4 {
         Host(IP_ADDR ip, SN_MASK sm): ip(ip), subnet_mask(sm){}
 
         bool ping(int time_out = 1500 /* ms */){
-            int x = 0;
+            string cmd_ret;
 
             stringstream cmd_ss;
-            cmd_ss << "ping " << this->ip.str << " -n 1 -w " << time_out << " >nul 2>&1";
+            cmd_ss << "ping " << this->ip.str << " -n 1 -w " << time_out; //<< " >nul 2>&1";
 
             string cmd_st = cmd_ss.str();
-            const char* cmd_str = cmd_st.c_str();
 
-            x = system(cmd_str);
+            cmd_ret = exec(cmd_ss.str());
 
-            this->reachable = (x == 0);
+            string ip_reg_str = string(to_string(this->ip.value[0]) + "\\." + to_string(this->ip.value[1]) + "\\." + to_string(this->ip.value[2]) + "\\." + to_string(this->ip.value[3]));
+
+            std::regex reg(string(".*" + ip_reg_str + ": Bytes\\=" + ".*\\(0\\%.*"), std::regex::extended);
+
+            if(regex_match(cmd_ret, reg)){
+                this->reachable = true;
+            }
+            else{
+                this->reachable = false;
+                //cout << cmd_ret << endl;
+            }
+
             return this->reachable;
         }
     };
@@ -231,34 +296,71 @@ public:
     }
 
     void print_scan_results(bool show_unreachable = false){
-        cout << "\n\n[SCAN-RESULTS]" << endl;
+        system("cls");
+        cout << "[SCAN]" << endl;
+        cout << "Subnet:  " << this->net_addr.str << " - " << this->broadcast_addr.str << endl;
+        cout << "Mask:    " << this->subnet_mask.str << endl;
+        cout << "CIDR:    " << this->subnet_mask.cidr << endl;
+
+        cout << "\n\n[RESULTS]" << endl;
 
         if(show_unreachable){
             for(auto &host : this->hosts){
-                cout << ((host.reachable) ? "\x1b[38;2;0;255;0m[+]\x1b[0m": "\x1b[38;2;255;0;0m[x]\x1b[0m") << host.ip.str << endl;
+                cout << ((host.reachable) ? "\x1b[38;2;0;255;0m[+]\x1b[0m  ": "\x1b[38;2;255;0;0m[x]\x1b[0m  ") << host.ip.str << endl;
             }
         }else{
             for(auto host : this->reachable_hosts){
-                cout << "\x1b[38;2;0;255;0m[+]\x1b[0m" << host->ip.str  << endl;
+                cout << "\x1b[38;2;0;255;0m[+]\x1b[0m  " << host->ip.str  << endl;
             }
         }
     }
 };
 
 int main(int argc, char* argv[]) {
-    IPv4::IP_ADDR sn_addr = IPv4::IP_ADDR(192,168,0,0);
-    IPv4::SN_MASK sn_mask = IPv4::SN_MASK(255,255,255,0);
+    int arg_addr[4] = {192,168,0,0};
+    int arg_sm[4] = {255,255,255,0};
+    bool show_unreachable = false;
+
+    for(int i = 1; i < argc; i++){
+        if(regex_match(argv[i], regex("^(\\~n|\\~s|\\~sn|\\~\\~(net|subnet))$"))){
+            i += 1;
+            vector<string> addr_parts = split_str(string(argv[i]), '.');
+
+            for(int j = 0; j < 4; j++){
+                arg_addr[j] = stoi(string(addr_parts[j]));
+            }
+        }
+        else if(regex_match(argv[i], regex("^(\\~c|\\~sm|\\~\\~(cidr|subnetmask|mask))$"))){
+            i += 1;
+
+            vector<string> sm_parts = split_str(string(argv[i]), '.');
+
+            for(int j = 0; j < 4; j++){
+                arg_sm[j] = stoi(string(sm_parts[j]));
+            }
+        }
+        else if(regex_match(argv[i], regex("^(\\~su|\\~\\~show_unreachable|\\~\\~show_all)$"))){
+            i += 1;
+            show_unreachable = (regex_match(argv[i], regex("^[Tt]rue$")) || stoi(argv[i]) == 1);
+        }
+    }
+
+    IPv4::IP_ADDR sn_addr = IPv4::IP_ADDR(arg_addr[0],arg_addr[1],arg_addr[2],arg_addr[3]);
+    IPv4::SN_MASK sn_mask = IPv4::SN_MASK(arg_sm[0],arg_sm[1],arg_sm[2],arg_sm[3]);
     Subnet sn = Subnet(sn_addr, sn_mask);
 
+    cout << sn_addr.bit_value << endl;
+    cout << sn_addr.str << endl;
+    cout << sn_mask.bit_value << endl;
+    cout << sn_mask.str << endl;
+    cout << sn_mask.cidr << endl;
+
+    cin.get();
+
     sn.scan();
-    sn.print_scan_results(true);
+    sn.print_scan_results(show_unreachable);
 
-
-    //cout << sn_addr.bit_value << endl;
-    //cout << sn_mask.bit_value << endl;
-    //cout << sn_mask.cidr << endl;
-
-
-
+    cout << "\n\nPress Enter to continue....";
+    cin.get();
     return 0;
 }
